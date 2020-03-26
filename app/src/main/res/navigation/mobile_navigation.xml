@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_customer" />
+
+    <fragment
+        android:id="@+id/nav_loyalty_card"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.loyaltycard.LoyaltyCardFragment"
+        android:label="@string/menu_loyalty"
+        tools:layout="@layout/fragment_loyalty_card_customers" />
+
+    <fragment
+        android:id="@+id/nav_voucher"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.voucher.VoucherFragment"
+        android:label="@string/menu_voucher"
+        tools:layout="@layout/fragment_voucher_customer" />
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat_customer" />
+
+    <fragment
+        android:id="@+id/nav_our_products"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.ourproducts.OurProductsFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_our_products_customers" />
+
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.aboutus.AboutUsFragment"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/fragment_about_us_customer" />
+
+    <fragment
+        android:id="@+id/nav_location"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.location.LocationFragment"
+        android:label="@string/menu_location"
+        tools:layout="@layout/fragment_location_customer" />
+
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.faq.FAQFragment"
+        android:label="@string/menu_faq"
+        tools:layout="@layout/fragment_faq_customer" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
+
+    <fragment
+        android:id="@+id/nav_home_owner"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.homeOwner.HomeOwnerFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_owner"/>
+
+    <fragment
+        android:id="@+id/nav_chat_owner"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.ChatOwnerFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat_owner"/>
+
+    <fragment
+        android:id="@+id/nav_barcode_scanner"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.barcodeScanerOwner.BarcodeScannerOwnerFragment"
+        android:label="@string/menu_scanner"
+        tools:layout="@layout/fragment_barcode_scanner_owner"/>
+
+    <fragment
+        android:id="@+id/nav_customer_data"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.customerData.CustomerDataFragment"
+        android:label="@string/menu_customers"
+        tools:layout="@layout/fragment_customer_data"/>
+
+    <fragment
+        android:id="@+id/nav_owner_logout"
+        android:name="com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        tools:layout="@layout/fragment_logout" />
+
+
+</navigation>

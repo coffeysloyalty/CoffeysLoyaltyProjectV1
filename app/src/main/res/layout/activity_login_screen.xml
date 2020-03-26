@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alicearmstrong.coffeysloyaltyprojectv1.LoginScreen">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="206dp"
+                android:layout_height="209dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:src="@mipmap/coffeyslogo"/>
+
+                <EditText
+                    android:id="@+id/etEmailAddresss"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+                    android:drawablePadding="15dp"
+                    android:ems="10"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:padding="5dp"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp"
+                    android:textStyle="bold|italic"
+                    android:typeface="monospace" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+                    android:drawablePadding="15dp"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textColor="@color/gold"
+                    android:textSize="15sp"
+                    android:textStyle="bold|italic"
+                    android:typeface="monospace" />
+
+            <ProgressBar
+                android:id="@+id/pbLogin"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:indeterminateDrawable="@drawable/progress"/>
+
+            <Button
+                android:id="@+id/btLogin"
+                android:onClick="onClickLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"
+                android:paddingBottom="5dp"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="5dp"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold|italic"
+                android:typeface="monospace" />
+
+
+            <Button
+                android:id="@+id/btRegister"
+                android:onClick="onClickRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"
+                android:paddingBottom="5dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="5dp"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold|italic"
+                android:typeface="monospace" />
+
+            <Button
+                android:id="@+id/btForgotPassword"
+                android:onClick="onClickForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:paddingTop="15dp"
+                android:typeface="monospace"
+                android:text="@string/forgotPassword" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

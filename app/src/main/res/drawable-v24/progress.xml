@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--https://stackoverflow.com/questions/5337613/how-to-change-color-in-circular-progress-bar/5337657 -->
+
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="360" >
+
+    <shape
+        android:innerRadiusRatio="3"
+        android:shape="ring"
+        android:thicknessRatio="10"
+        android:useLevel="false" >
+
+        <size
+            android:height="80dip"
+            android:width="80dip" />
+
+        <gradient
+            android:angle="0"
+            android:endColor="@color/gold"
+            android:startColor="@color/gold"
+            android:type="sweep"
+            android:useLevel="false" />
+
+    </shape>
+
+</rotate>

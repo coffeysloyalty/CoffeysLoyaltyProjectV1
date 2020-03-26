@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="4">
+
+    <TextView
+        android:id="@+id/txtVoucher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:layout_weight="0.5"
+        android:textSize="16sp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btVoucher1"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher1"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btVoucher2"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"
+            android:text="@string/voucher2"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btVoucher3"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher3"
+            android:layout_marginTop="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btVoucher4"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher4"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btVoucher5"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher5"
+            android:layout_marginTop="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btVoucher6"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher6"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btVoucher7"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:text="@string/voucher7"
+        android:layout_marginTop="10dp"
+        android:background="@color/gold"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btVoucher8"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:text="@string/voucher8"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/gold"
+        android:visibility="gone"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btVoucher9"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher9"
+            android:layout_marginTop="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btVoucher10"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            android:text="@string/voucher10"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/gold"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

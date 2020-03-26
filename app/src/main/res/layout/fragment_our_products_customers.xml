@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="4">
+
+    <TextView
+        android:id="@+id/txtProducts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/our_products"
+        android:layout_gravity="center"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:layout_weight="0.5"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btPork"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_pork"/>
+
+       <Button
+            android:id="@+id/btBeef"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:background="@drawable/ic_beef"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txtPork"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/pork"
+        android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtBeef"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/beef"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btPoultry"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:background="@drawable/ic_chicken"
+            android:scaleType="fitCenter" />
+
+        <Button
+            android:id="@+id/btLamb"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:background="@drawable/ic_lamb"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtPoultry"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/poultry"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtLamb"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lamb"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btSpecialityMeats"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:background="@drawable/ic_venison"
+            android:scaleType="fitCenter"/>
+
+        <Button
+            android:id="@+id/btCookedProducts"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:background="@drawable/ic_pie"
+            android:scaleType="fitCenter" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/txtSpecialityMeats"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/speciality_meats"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtCookedProducts"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cooked_products"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

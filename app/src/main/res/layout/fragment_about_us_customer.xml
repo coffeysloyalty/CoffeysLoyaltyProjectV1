@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gold">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <uk.co.deanwild.flowtextview.FlowTextView
+            android:id="@+id/ftv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="693dp"
+            android:paddingTop="15dp"
+            >
+
+            <ImageView
+                android:id="@+id/ivAboutUs"
+                android:src="@drawable/ic_coffeys_front"
+                android:layout_width="248dp"
+                android:layout_height="220dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:padding="10dip" />
+
+            <ImageView
+                android:id="@+id/ivAboutUs2"
+                android:src="@drawable/ic_counter"
+                android:layout_width="248dp"
+                android:layout_height="220dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="400dip"
+                android:padding="10dip" />
+
+        </uk.co.deanwild.flowtextview.FlowTextView>
+
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

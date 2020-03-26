@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtLoyalty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/loyalty_welcome"/>
+
+    <ImageView
+        android:id="@+id/ivLoyaltyCard"
+        android:layout_width="365dp"
+        android:layout_height="290dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_loyalty_card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLoyalty"
+        app:layout_constraintVertical_bias="0.133" />
+
+
+    <ImageView
+        android:id="@+id/ivStamp1"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.365"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp2"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.365"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp3"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.364"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/ivStamp4"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.365"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp5"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.365"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp6"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.282"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp7"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.282"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp8"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.282"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp9"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.715"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.282"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivStamp10"
+        android:layout_width="39dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="328dp"
+        android:src="@drawable/ic_pig_stamp"
+        app:layout_constraintBottom_toBottomOf="@id/txtLoyalty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLoyaltyCard"
+        app:layout_constraintVertical_bias="0.282"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        android:layout_marginLeft="120dp"
+        android:text="@string/history"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/ivLoyaltyCard"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="350dp"
+        android:background="@color/gold" />
+
+
+</RelativeLayout>

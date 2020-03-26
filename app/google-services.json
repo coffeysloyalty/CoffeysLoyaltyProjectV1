@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "1083690089670",
+    "firebase_url": "https://coffeysloyalty.firebaseio.com",
+    "project_id": "coffeysloyalty",
+    "storage_bucket": "coffeysloyalty.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083690089670:android:e7acd98f0f8ada9eafabc7",
+        "android_client_info": {
+          "package_name": "com.alicearmstrong.coffeysloyaltyprojectv1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlM6LlZKIg9k5VjvWqEfAx43qOE0MZ1ew"
+        },
+        {
+          "current_key": "AIzaSyB-y2wEgXuyGTy9ZIUlVoTImleDzfYFSho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083690089670:android:bdf002c0790a0bf4afabc7",
+        "android_client_info": {
+          "package_name": "com.alicearmstrong.coffeysloyaltyrecent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083690089670-m51ma6pe1mp8dgb5r2ifdg9sid6ro7gd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alicearmstrong.coffeysloyaltyrecent",
+            "certificate_hash": "1028fc6963aa09451e641fd23369661e8f429e1e"
+          }
+        },
+        {
+          "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlM6LlZKIg9k5VjvWqEfAx43qOE0MZ1ew"
+        },
+        {
+          "current_key": "AIzaSyB-y2wEgXuyGTy9ZIUlVoTImleDzfYFSho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083690089670:android:1e57473d6d1f13cbafabc7",
+        "android_client_info": {
+          "package_name": "com.alicearmstrong.coffeysloyaltyv4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlM6LlZKIg9k5VjvWqEfAx43qOE0MZ1ew"
+        },
+        {
+          "current_key": "AIzaSyB-y2wEgXuyGTy9ZIUlVoTImleDzfYFSho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083690089670-4simpa4ksk5mviphmeuhiovonfn58us5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

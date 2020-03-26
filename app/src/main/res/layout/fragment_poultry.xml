@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".uiCustomers.ourproducts.PoultryFragment"
+    android:orientation="vertical">
+
+    <ExpandableListView
+        android:id="@+id/lvExpPoultry"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <ListView
+        android:id="@+id/lvPoultry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gold" />
+
+</LinearLayout>
