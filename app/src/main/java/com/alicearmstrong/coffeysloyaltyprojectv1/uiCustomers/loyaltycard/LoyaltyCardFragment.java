@@ -40,8 +40,7 @@ public class LoyaltyCardFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
-        loyaltyCardViewModel =
-                ViewModelProviders.of(this).get(LoyaltyCardViewModel.class);
+        loyaltyCardViewModel = ViewModelProviders.of(this).get(LoyaltyCardViewModel.class);
         View root = inflater.inflate( R.layout.fragment_loyalty_card_customers, container, false);
         Stamp1 = root.findViewById(R.id.ivStamp1);
         Stamp2 = root.findViewById(R.id.ivStamp2);
