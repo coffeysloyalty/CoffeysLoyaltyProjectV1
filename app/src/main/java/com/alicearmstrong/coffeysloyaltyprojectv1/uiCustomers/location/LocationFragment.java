@@ -2,10 +2,8 @@ package com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.location;
 
 import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,41 +14,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.Manifest;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
-import static android.content.Context.LOCATION_SERVICE;
-
-public class LocationFragment extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LocationFragment extends Fragment implements OnMapReadyCallback {
     private LocationViewModel locationViewModel;
     private GoogleMap gMap;
     private MapView mapView;
     private Location currentLocation;
-    FusedLocationProviderClient fusedLocationProviderClient;
     private int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         locationViewModel = ViewModelProviders.of( this ).get( LocationViewModel.class );
         View view = inflater.inflate( R.layout.fragment_location_customer, container, false );
-
-
 
         return view;
     }
@@ -59,6 +47,8 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated( view, savedInstanceState );
+
+
 
         mapView = (MapView) view.findViewById( R.id.map );
         if (mapView != null)
@@ -83,9 +73,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
         gMap.addMarker( new MarkerOptions().position( coffeys ).title( "Coffey's Butchers" ) );
         gMap.moveCamera( CameraUpdateFactory.newLatLngZoom( coffeys, 12 ) );
         uiSettings.setZoomControlsEnabled(true);
-
-       enableLocation();
-
+        enableLocation();
     }
 
     private final LocationListener locationListener = new LocationListener() {
@@ -107,61 +95,15 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback, Go
     };
 
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
- /*   public boolean checkLocationPermission()
-    {
-        if (ContextCompat.checkSelfPermission( getActivity(), Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED)
-        {
-
-
-            // Asking user if explanation is needed
-            if (ActivityCompat.shouldShowRequestPermissionRationale( getActivity(), Manifest.permission.ACCESS_FINE_LOCATION ))
-            {
-                //Prompt the user once explanation has been shown
-                requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-                return true;
-            }
-            else
-                {
-                // No explanation needed, we can request the permission.
-                requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_PERMISSION_REQUEST_CODE );
-
-            }
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }*/
-
-
 
     public void enableLocation()
     {
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
-
         if (permissionCheck != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
-
-       if(permissionCheck == PackageManager.PERMISSION_GRANTED)
+        if(permissionCheck == PackageManager.PERMISSION_GRANTED)
         {
             gMap.setMyLocationEnabled( true );
         }

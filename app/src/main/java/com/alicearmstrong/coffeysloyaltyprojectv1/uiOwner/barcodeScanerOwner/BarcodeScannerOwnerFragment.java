@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -53,7 +55,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
         surfaceView = root.findViewById(R.id.sfCameraView);
         textView = root.findViewById(R.id.textView);
-        barcodeDetector = new BarcodeDetector.Builder(getActivity()).setBarcodeFormats( Barcode.QR_CODE).build();
+        barcodeDetector = new BarcodeDetector.Builder(getActivity()).setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(getActivity(),barcodeDetector).setRequestedPreviewSize(640,480).build();
 
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Customers");
@@ -71,6 +73,9 @@ public class BarcodeScannerOwnerFragment extends Fragment
                 try
                 {
                     cameraSource.start(holder);
+                    surfaceView.setFocusableInTouchMode(true);
+                    surfaceView.setFocusable(true);
+                    surfaceView.requestFocus();
                 }
                 catch (IOException e )
                 {
@@ -103,7 +108,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections)
             {
-               final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
+                final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
 
                 if (qrCodes.size()!=0)
                 {
@@ -113,8 +118,8 @@ public class BarcodeScannerOwnerFragment extends Fragment
                         public void run()
                         {
                             //Enable vibrate when scanned
-                            //Vibrator vibrator = (Vibrator)getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                          //  vibrator.vibrate(1000);
+                            Vibrator vibrator = (Vibrator)getContext().getSystemService( Context.VIBRATOR_SERVICE);
+                            vibrator.vibrate(1000);
                             cameraSource.stop();
 
                             //Get email string from QR Code
@@ -228,15 +233,15 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                                 databaseReference.child(uuid).child("Voucher").child(String.valueOf(voucherNumber)).setValue("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email +"Voucher"+ voucherNumber);
                                             }
                                             else
-                                                {
+                                            {
                                                 databaseReference.child(uuid).child("Voucher").child(String.valueOf(voucherCount)).setValue("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email +"Voucher"+ voucherCount);
 
                                             }
 
 
                                         }
-                                        }
                                     }
+                                }
 
                                 @Override
                                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)

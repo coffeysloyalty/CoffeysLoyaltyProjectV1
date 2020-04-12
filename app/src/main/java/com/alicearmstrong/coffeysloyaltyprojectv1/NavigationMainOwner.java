@@ -19,7 +19,7 @@ import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.homeOwner.HomeOwnerFra
 
 public class NavigationMainOwner extends AppCompatActivity
 {
-    private ActionBar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,13 +27,19 @@ public class NavigationMainOwner extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_main_owner);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Home");
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        toolbar.setTitle("Shop");
+        if (savedInstanceState == null)
+        {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,27 +49,26 @@ public class NavigationMainOwner extends AppCompatActivity
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                   // toolbar.setTitle("Home");
+                    toolbar.setTitle("Home");
                     fragment = new HomeOwnerFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_barcode_scanner:
-                   // toolbar.setTitle("Barcode Scanner");
+                    toolbar.setTitle("Barcode Scanner");
                     fragment = new BarcodeScannerOwnerFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:
-                    //toolbar.setTitle("Chat");
+                    toolbar.setTitle("Chat");
                     fragment = new ChatOwnerFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_customer_data:
-               //     toolbar.setTitle("Customer's Data");
+                    toolbar.setTitle("Customer's Data");
                     fragment = new CustomerDataFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_logout:
-                    //     toolbar.setTitle("Customer's Data");
                     fragment = new LogoutFragment();
                     loadFragment(fragment);
                     return true;
@@ -74,7 +79,7 @@ public class NavigationMainOwner extends AppCompatActivity
 
     private void loadFragment(Fragment fragment)
     {
-        // load fragment
+        // Load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);

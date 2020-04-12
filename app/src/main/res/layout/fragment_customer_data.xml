@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="4">
+    android:weightSum="4"
+    android:paddingTop="?attr/actionBarSize">
 
 
     <EditText
@@ -15,13 +16,13 @@
         android:ems="20"
         android:hint="@string/search"
         android:layout_weight="0.5"
-        android:paddingLeft="15dp"/>
+        android:paddingLeft="15dp" />
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gold"
-        android:layout_weight="3.5"/>
+        android:layout_weight="3.5" />
 
 </LinearLayout>
