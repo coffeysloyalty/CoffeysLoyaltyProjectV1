@@ -275,7 +275,7 @@ public class RegisterScreen extends AppCompatActivity
             // Set db id equal to userID
             String id = firebaseUser.getUid();
 
-            Customers CustomerDetails = new Customers(firstName, surname,dob,contactNumber,email, qrCode, loyaltyScore);
+            Customers CustomerDetails = new Customers(id,firstName, surname,dob,contactNumber,email, qrCode, loyaltyScore);
             databaseReference.child(id).setValue(CustomerDetails);
 
 

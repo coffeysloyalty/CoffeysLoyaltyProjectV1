@@ -3,11 +3,12 @@ package com.alicearmstrong.coffeysloyaltyprojectv1.database;
 public class Customers
 
 {
-    String firstName,surname, DOB, contactNumber, email, qrCode;
+    String id, firstName,surname, DOB, contactNumber, email, qrCode;
     Integer loyaltyScore;
 
-    public Customers(String firstName, String surname, String DOB, String contactNumber, String email, String qrCode, Integer loyaltyScore)
+    public Customers(String id, String firstName, String surname, String DOB, String contactNumber, String email, String qrCode, Integer loyaltyScore)
     {
+        this.id = id;
         this.firstName = firstName;
         this.surname = surname;
         this.DOB = DOB;
@@ -18,6 +19,9 @@ public class Customers
 
     }
 
+    public String getId() {
+        return id;
+    }
     public String getFirstName()
     {
         return firstName;
@@ -51,5 +55,10 @@ public class Customers
     public Integer getLoyaltyScore()
     {
         return loyaltyScore;
+    }
+
+    public Customers()
+    {
+
     }
 }

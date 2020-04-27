@@ -252,7 +252,7 @@ public class LoginScreen extends AppCompatActivity
 
     public void checkIfAdmin()
     {
-        if (userID.equals("J0nRK48HtrfafcdrTjFqfyQDmn43") )
+        if (userID.equals("lYr5teVjoFP7TkXPowgARdDBzV83") )
         {
             Intent intent_admin = new Intent( LoginScreen.this, NavigationMainOwner.class );
             startActivity( intent_admin );

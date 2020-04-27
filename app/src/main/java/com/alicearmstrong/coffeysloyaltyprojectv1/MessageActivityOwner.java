@@ -1,25 +1,20 @@
-package com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.chat;
+package com.alicearmstrong.coffeysloyaltyprojectv1;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.alicearmstrong.coffeysloyaltyprojectv1.Adapter.MessageAdapter;
-import com.alicearmstrong.coffeysloyaltyprojectv1.MessageActivityOwner;
-import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Chat;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,14 +29,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+public class MessageActivityOwner extends AppCompatActivity {
 
-public class ChatFragment extends Fragment {
-
+    TextView customerName;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
-    String userid ;
     ImageButton btnSend;
     EditText etTextSend;
 
@@ -50,19 +44,37 @@ public class ChatFragment extends Fragment {
 
     RecyclerView recyclerView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        View root = inflater.inflate( R.layout.fragment_chat_customer, container, false);
+    Intent intent;
 
-        btnSend = root.findViewById( R.id.btn_send );
-        etTextSend = root.findViewById( R.id.text_send );
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_message_owner );
 
-        userid = "lYr5teVjoFP7TkXPowgARdDBzV83";
+        Toolbar toolbar = findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
+        getSupportActionBar().setTitle( "" );
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        toolbar.setNavigationOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        } );
 
-        recyclerView = root.findViewById( R.id.recycler_view );
+
+
+        customerName = findViewById( R.id.customerName );
+        btnSend = findViewById( R.id.btn_send );
+        etTextSend = findViewById( R.id.text_send );
+
+        recyclerView = findViewById( R.id.recycler_view );
         recyclerView.setHasFixedSize( true );
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getContext() );
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
         recyclerView.setLayoutManager( linearLayoutManager );
+
+        intent = getIntent();
+        final String userid = intent.getStringExtra( "userid" );
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Customers").child( userid );
@@ -73,21 +85,24 @@ public class ChatFragment extends Fragment {
                 String message = etTextSend.getText().toString();
                 if(!message.equals( "" ))
                 {
-                    sendMessage(firebaseUser.getUid(), message );
+                    sendMessage(firebaseUser.getUid(), userid, message );
                     etTextSend.setText( "" );
                 }
                 else
                 {
-                    Toast.makeText( getContext(), "You cannot send empty message.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MessageActivityOwner.this, "You cannot send empty message.", Toast.LENGTH_SHORT).show();
                 }
-
             }
         } );
+
+
 
         databaseReference.addValueEventListener( new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Customers customer = dataSnapshot.getValue(Customers.class);
+                customerName.setText(customer.getFirstName() + " " + customer.getSurname() );
 
                 readMessage( firebaseUser.getUid(), userid );
             }
@@ -97,15 +112,10 @@ public class ChatFragment extends Fragment {
 
             }
         } );
-
-
-        return root;
     }
 
-    public void sendMessage(String sender,  String message)
+    public void sendMessage(String sender, String receiver, String message)
     {
-        String receiver = "lYr5teVjoFP7TkXPowgARdDBzV83";
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> hashMap = new HashMap<>( );
@@ -136,7 +146,7 @@ public class ChatFragment extends Fragment {
                         mChat.add( chat );
                     }
 
-                    messageAdapter = new MessageAdapter(getContext(), mChat);
+                    messageAdapter = new MessageAdapter(MessageActivityOwner.this, mChat);
                     recyclerView.setAdapter( messageAdapter );
                 }
 
@@ -148,4 +158,5 @@ public class ChatFragment extends Fragment {
             }
         } );
     }
+
 }

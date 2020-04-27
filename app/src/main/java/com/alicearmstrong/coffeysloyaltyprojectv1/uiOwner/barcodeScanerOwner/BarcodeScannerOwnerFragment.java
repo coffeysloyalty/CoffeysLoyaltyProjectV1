@@ -1,3 +1,4 @@
+
 package com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.barcodeScanerOwner;
 
 import android.Manifest;
@@ -20,8 +21,10 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
+import com.alicearmstrong.coffeysloyaltyprojectv1.RegisterScreen;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -35,6 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BarcodeScannerOwnerFragment extends Fragment
 {
@@ -55,7 +60,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
         surfaceView = root.findViewById(R.id.sfCameraView);
         textView = root.findViewById(R.id.textView);
-        barcodeDetector = new BarcodeDetector.Builder(getActivity()).setBarcodeFormats(Barcode.QR_CODE).build();
+        barcodeDetector = new BarcodeDetector.Builder(getActivity()).setBarcodeFormats( Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(getActivity(),barcodeDetector).setRequestedPreviewSize(640,480).build();
 
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Customers");
@@ -115,15 +120,175 @@ public class BarcodeScannerOwnerFragment extends Fragment
                     textView.post(new Runnable()
                     {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             //Enable vibrate when scanned
-                            Vibrator vibrator = (Vibrator)getContext().getSystemService( Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(1000);
+                            Vibrator vibrator = (Vibrator) getContext().getSystemService( Context.VIBRATOR_SERVICE );
+                            vibrator.vibrate( 1000 );
                             cameraSource.stop();
 
-                            //Get email string from QR Code
-                            final String qrCode = qrCodes.valueAt(0).displayValue;
+                            final String qrcode = qrCodes.valueAt( 0 ).displayValue;
+
+                            if (qrcode.matches( "^(.+)@(.+)/(.+)/(.+)$" ))
+                            {
+                                String qrEmail1 = null;
+                                String qrEmail2 = null;
+                                String qrEmail = null;
+                                String qrVoucherNumber = null;
+                                final Pattern pattern = Pattern.compile( "^(.+)@(.+)/(.+)/(.+)$" );
+                                final Matcher matcher = pattern.matcher( qrcode );
+
+                                if (matcher.matches())
+                                {
+                                    qrEmail1 = matcher.group(1);
+                                    qrEmail2 = matcher.group(2);
+                                    qrEmail = qrEmail1 + "@" + qrEmail2;
+                                    qrVoucherNumber = matcher.group(4);
+                                }
+
+                                final String finalQrVoucherNumber = qrVoucherNumber;
+                                databaseReference.orderByChild( "email" ).equalTo(qrEmail).addChildEventListener( new ChildEventListener()
+                                {
+
+
+                                    @Override
+                                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+                                    {
+                                        String uuid = dataSnapshot.getKey();
+
+                                        databaseReference.child( uuid ).child( "Voucher" ).child( finalQrVoucherNumber ).setValue( null );
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                                Toast.makeText( getContext(), qrVoucherNumber, Toast.LENGTH_LONG ).show();
+                            }
+
+                          else  if(qrcode.matches( "^(.+)@(.+)$"))
+                            {
+                                String qrEmail = null;
+                                final Pattern pattern = Pattern.compile( "^(.+)@(.+)$" );
+                                final Matcher matcher = pattern.matcher( qrcode );
+
+                                if (matcher.matches())
+                                {
+                                    qrEmail = matcher.group(0);
+                                }
+
+                                //Update database with new loyalty score
+                                databaseReference.orderByChild( "email" ).equalTo(qrEmail).addChildEventListener( new ChildEventListener()
+                                {
+                                @Override
+                                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                    //Get users info from db
+                                    final String firstName = dataSnapshot.child( "firstName" ).getValue().toString();
+                                    final String surname = dataSnapshot.child( "surname" ).getValue().toString();
+                                    final String email = dataSnapshot.child( "email" ).getValue().toString();
+                                    final String loyaltyPoints = dataSnapshot.child( "loyaltyScore" ).getValue().toString();
+
+                                    //Check if history exists
+                                    boolean historyExists = dataSnapshot.child( "History" ).exists();
+
+                                    //Get UUID
+                                    String uuid = dataSnapshot.getKey();
+
+                                    //Convert loyalty points string to int
+                                    int points = Integer.parseInt( loyaltyPoints );
+
+                                    //Set textview to users data
+                                    textView.setText( "Name: " + firstName + " " + surname + "\n" + "Email: " + email );
+
+                                    //Get date & time when QR Code is scanned
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "dd-MM-yyyy hh:mm:ss" );
+                                    String dateStamp = simpleDateFormat.format( new Date() );
+
+                                    //If points =1 & customer has stamp history, old history is deleted and new history started
+                                    if (points == 0 && historyExists == true) {
+                                        int count;
+
+                                        for (count = 1; count <= 10; count++) {
+                                            final String stampDate = dataSnapshot.child( "History" ).child( "1" ).getValue().toString();
+
+                                            databaseReference.child( uuid ).child( "History" ).child( String.valueOf( count ) ).setValue( null );
+                                            databaseReference.child( uuid ).child( "History" ).child( "1" ).setValue( stampDate );
+                                        }
+
+                                    }
+                                    //Increase points if less than 10
+                                    if (points < 10) {
+                                        points++;
+                                        databaseReference.child( uuid ).child( "loyaltyScore" ).setValue( points );
+                                        databaseReference.child( uuid ).child( "History" ).child( String.valueOf( points ) ).setValue( dateStamp );
+
+                                        //If score is at 10, restart counter and reward user with voucher
+                                        if (points == 10) {
+                                            try {
+                                                Thread.sleep( 3000 );
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
+                                            databaseReference.child( uuid ).child( "loyaltyScore" ).setValue( "0" );
+
+                                            int voucherCount = 1;
+                                            boolean voucherExists = dataSnapshot.child( "Voucher" ).exists();
+
+                                            if (voucherExists == true) {
+                                                long voucherNumber = dataSnapshot.child( "Voucher" ).getChildrenCount();
+                                                voucherNumber++;
+
+                                                databaseReference.child( uuid ).child( "Voucher" ).child( String.valueOf( voucherNumber ) ).setValue( "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email + "/Voucher/" + voucherNumber );
+                                            }
+                                            else
+                                                {
+                                                databaseReference.child( uuid ).child( "Voucher" ).child( String.valueOf( voucherCount ) ).setValue( "https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email + "/Voucher/" + voucherCount );
+
+                                            }
+
+
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                }
+
+                                @Override
+                                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                                }
+
+                                @Override
+                                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    System.out.println( "The read failed: " + databaseError.getCode() );
+                                }
+
+                            } );
+                        }
 
                             //Create alert dialog for successfully scanned QR Code
                             AlertDialog.Builder ADSuccessfulScan = new AlertDialog.Builder(getContext());
@@ -159,115 +324,6 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
                                         }
                                     });
-
-                            //Update database with new loyalty score
-                            databaseReference.orderByChild("email").equalTo(qrCode).addChildEventListener(new ChildEventListener()
-                            {
-                                @Override
-                                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                                {
-                                    //Get users info from db
-                                    final String firstName = dataSnapshot.child("firstName").getValue().toString();
-                                    final String surname = dataSnapshot.child("surname").getValue().toString();
-                                    final String email = dataSnapshot.child("email").getValue().toString();
-                                    final String loyaltyPoints = dataSnapshot.child("loyaltyScore").getValue().toString();
-
-                                    //Check if history exists
-                                    boolean historyExists = dataSnapshot.child("History").exists();
-
-                                    //Get UUID
-                                    String uuid = dataSnapshot.getKey();
-
-                                    //Convert loyalty points string to int
-                                    int points = Integer.parseInt(loyaltyPoints);
-
-                                    //Set textview to users data
-                                    textView.setText("Name: " + firstName + " " + surname + "\n" + "Email: " + email);
-
-                                    //Get date & time when QR Code is scanned
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
-                                    String dateStamp = simpleDateFormat.format(new Date());
-
-                                    //If points =1 & customer has stamp history, old history is deleted and new history started
-                                    if (points == 0 && historyExists == true)
-                                    {
-                                        int count;
-
-                                        for(count = 1; count<=10; count++ )
-                                        {
-                                            final String stampDate = dataSnapshot.child("History").child("1").getValue().toString();
-
-                                            databaseReference.child(uuid).child("History").child(String.valueOf(count)).setValue(null);
-                                            databaseReference.child(uuid).child("History").child("1").setValue(stampDate);
-                                        }
-
-                                    }
-                                    //Increase points if less than 10
-                                    if (points<10)
-                                    {
-                                        points ++;
-                                        databaseReference.child(uuid).child("loyaltyScore").setValue(points);
-                                        databaseReference.child(uuid).child("History").child(String.valueOf(points)).setValue(dateStamp);
-
-                                        //If score is at 10, restart counter and reward user with voucher
-                                        if (points == 10)
-                                        {
-                                            try
-                                            {
-                                                Thread.sleep(3000);
-                                            } catch (InterruptedException e)
-                                            {
-                                                e.printStackTrace();
-                                            }
-                                            databaseReference.child(uuid).child("loyaltyScore").setValue("0");
-
-                                            int voucherCount = 1;
-                                            boolean voucherExists = dataSnapshot.child("Voucher").exists();
-
-                                            if (voucherExists == true)
-                                            {
-                                                long voucherNumber = dataSnapshot.child("Voucher").getChildrenCount();
-                                                voucherNumber++;
-
-
-                                                databaseReference.child(uuid).child("Voucher").child(String.valueOf(voucherNumber)).setValue("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email +"Voucher"+ voucherNumber);
-                                            }
-                                            else
-                                            {
-                                                databaseReference.child(uuid).child("Voucher").child(String.valueOf(voucherCount)).setValue("https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=" + email +"Voucher"+ voucherCount);
-
-                                            }
-
-
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                                {
-
-                                }
-
-                                @Override
-                                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
-                                {
-
-                                }
-
-                                @Override
-                                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-                                {
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError)
-                                {
-                                    System.out.println("The read failed: " + databaseError.getCode());
-                                }
-
-                            });
 
                             //Display alert diaglog box
                             ADSuccessfulScan.create();

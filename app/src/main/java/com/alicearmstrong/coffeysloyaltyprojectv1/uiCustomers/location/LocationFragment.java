@@ -59,21 +59,19 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
         UiSettings uiSettings = googleMap.getUiSettings();
-
         gMap = googleMap;
+        enableLocation();
         LatLng coffeys = new LatLng( 54.572720, -5.959151 );
         gMap.addMarker( new MarkerOptions().position( coffeys ).title( "Coffey's Butchers" ) );
         gMap.moveCamera( CameraUpdateFactory.newLatLngZoom( coffeys, 12 ) );
         uiSettings.setZoomControlsEnabled(true);
-        enableLocation();
+
     }
 
     private final LocationListener locationListener = new LocationListener() {
@@ -105,6 +103,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
         }
         if(permissionCheck == PackageManager.PERMISSION_GRANTED)
         {
+
             gMap.setMyLocationEnabled( true );
         }
     }

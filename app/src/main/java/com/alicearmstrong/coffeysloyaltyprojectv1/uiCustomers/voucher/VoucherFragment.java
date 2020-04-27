@@ -80,7 +80,8 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
 
         databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
                 //Check if voucher exists
                 boolean voucherExists = dataSnapshot.child( "Voucher" ).exists();
                 if (voucherExists == true) {
@@ -90,7 +91,8 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
                     long voucherNumber = dataSnapshot.child( "Voucher" ).getChildrenCount();
                     String voucherCount = String.valueOf( voucherNumber );
 
-                    switch (voucherCount) {
+                    switch (voucherCount) 
+                    {
                         case "1":
                             btVoucher1.setVisibility( View.VISIBLE );
                             break;
@@ -180,8 +182,11 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
                             break;
                     }
 
-                } else {
+                }
+                else
+                    {
                     txtVoucher.setText( "You currently have no vouchers. Please collect 10 stamps to obtain a voucher!" );
+                    vouchersInvisible();
                 }
 
                 //Get QRCode
@@ -200,6 +205,9 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
 
     }
 
+
+
+
     @Override
     public void onClick(final View v)
     {
@@ -215,6 +223,10 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        final AlertDialog AlertDialog = null;
+
+
+
         databaseReference.addValueEventListener( new ValueEventListener()
         {
             @Override
@@ -222,85 +234,180 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
                 switch (v.getId())
                 {
                     case R.id.btVoucher1:
-                        String voucher1 = dataSnapshot.child("Voucher").child("1").getValue().toString();
+                        boolean voucherExist1 = dataSnapshot.child( "Voucher" ).child( "1" ).exists();
 
-                        alertDialog.setTitle( "Voucher 1" );
-                        Picasso.with(getActivity()).load(voucher1).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist1==true)
+                        {
+                            String voucher1 = dataSnapshot.child("Voucher").child("1").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 1" );
+                            Picasso.with(getActivity()).load(voucher1).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
+                        while (voucherExist1 == false)
+                        {
+                            AlertDialog.Builder alertDialognew = new AlertDialog.Builder(v.getContext());
+                            alertDialognew.setTitle( "Successfully Scanned" );
+                            alertDialognew.show();
+
+                            alertDialognew.setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                }
+                            });
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher2:
-                        String voucher2 = dataSnapshot.child("Voucher").child("2").getValue().toString();
 
-                        alertDialog.setTitle( "Voucher 2" );
-                        Picasso.with(getActivity()).load(voucher2).into(voucherImage);
-                        alertDialog.show();
+                        boolean voucherExist2 = dataSnapshot.child( "Voucher" ).child( "2" ).exists();
+
+                        while(voucherExist2==true)
+                        {
+                            String voucher2 = dataSnapshot.child("Voucher").child("2").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 2" );
+                            Picasso.with(getActivity()).load(voucher2).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher3:
-                        String voucher3 = dataSnapshot.child("Voucher").child("3").getValue().toString();
+                        boolean voucherExist3 = dataSnapshot.child( "Voucher" ).child( "3" ).exists();
 
-                        alertDialog.setTitle( "Voucher 3" );
-                        Picasso.with(getActivity()).load(voucher3).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist3==true)
+                        {
+                            String voucher3 = dataSnapshot.child("Voucher").child("3").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 3" );
+                            Picasso.with(getActivity()).load(voucher3).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher4:
-                        String voucher4 = dataSnapshot.child("Voucher").child("4").getValue().toString();
+                        boolean voucherExist4 = dataSnapshot.child( "Voucher" ).child( "4" ).exists();
 
-                        alertDialog.setTitle( "Voucher 4" );
-                        Picasso.with(getActivity()).load(voucher4).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist4==true)
+                        {
+                            String voucher4 = dataSnapshot.child("Voucher").child("4").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 4" );
+                            Picasso.with(getActivity()).load(voucher4).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher5:
-                        String voucher5 = dataSnapshot.child("Voucher").child("5").getValue().toString();
+                        boolean voucherExist5 = dataSnapshot.child( "Voucher" ).child( "5" ).exists();
 
-                        alertDialog.setTitle( "Voucher 5" );
-                        Picasso.with(getActivity()).load(voucher5).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist5==true)
+                        {
+                            String voucher5 = dataSnapshot.child("Voucher").child("5").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 5" );
+                            Picasso.with(getActivity()).load(voucher5).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher6:
-                        String voucher6 = dataSnapshot.child("Voucher").child("6").getValue().toString();
+                        boolean voucherExist6= dataSnapshot.child( "Voucher" ).child( "6" ).exists();
 
-                        alertDialog.setTitle( "Voucher 6" );
-                        Picasso.with(getActivity()).load(voucher6).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist6==true)
+                        {
+                            String voucher6 = dataSnapshot.child("Voucher").child("6").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 6" );
+                            Picasso.with(getActivity()).load(voucher6).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher7:
-                        String voucher7 = dataSnapshot.child("Voucher").child("7").getValue().toString();
+                        boolean voucherExist7 = dataSnapshot.child( "Voucher" ).child( "7" ).exists();
 
-                        alertDialog.setTitle( "Voucher 7" );
-                        Picasso.with(getActivity()).load(voucher7).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist7==true)
+                        {
+                            String voucher7 = dataSnapshot.child("Voucher").child("7").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 7" );
+                            Picasso.with(getActivity()).load(voucher7).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher8:
-                        String voucher8 = dataSnapshot.child("Voucher").child("8").getValue().toString();
+                        boolean voucherExist8 = dataSnapshot.child( "Voucher" ).child( "8" ).exists();
 
-                        alertDialog.setTitle( "Voucher 8" );
-                        Picasso.with(getActivity()).load(voucher8).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist8==true)
+                        {
+                            String voucher8 = dataSnapshot.child("Voucher").child("8").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 8" );
+                            Picasso.with(getActivity()).load(voucher8).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher9:
-                        String voucher9 = dataSnapshot.child("Voucher").child("9").getValue().toString();
+                        boolean voucherExist9 = dataSnapshot.child( "Voucher" ).child( "9" ).exists();
 
-                        alertDialog.setTitle( "Voucher 9" );
-                        Picasso.with(getActivity()).load(voucher9).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist9==true)
+                        {
+                            String voucher9 = dataSnapshot.child("Voucher").child("9").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 9" );
+                            Picasso.with(getActivity()).load(voucher9).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
 
                     case R.id.btVoucher10:
-                        String voucher10 = dataSnapshot.child("Voucher").child("10").getValue().toString();
+                        boolean voucherExist10 = dataSnapshot.child( "Voucher" ).child( "10" ).exists();
 
-                        alertDialog.setTitle( "Voucher 10" );
-                        Picasso.with(getActivity()).load(voucher10).into(voucherImage);
-                        alertDialog.show();
+                        while(voucherExist10==true)
+                        {
+                            String voucher10 = dataSnapshot.child("Voucher").child("10").getValue().toString();
+
+                            alertDialog.setTitle( "Voucher 10" );
+                            Picasso.with(getActivity()).load(voucher10).into(voucherImage);
+                            alertDialog.show();
+
+                            break;
+                        }
+
                         break;
-
                 }
             }
 
@@ -309,5 +416,20 @@ public class VoucherFragment extends Fragment implements View.OnClickListener {
 
             }
         } );
+    }
+
+    public void vouchersInvisible()
+
+    {
+        btVoucher1.setVisibility( View.GONE );
+        btVoucher2.setVisibility( View.GONE );
+        btVoucher3.setVisibility( View.GONE );
+        btVoucher4.setVisibility( View.GONE );
+        btVoucher5.setVisibility( View.GONE );
+        btVoucher6.setVisibility( View.GONE );
+        btVoucher7.setVisibility( View.GONE );
+        btVoucher8.setVisibility( View.GONE );
+        btVoucher9.setVisibility( View.GONE );
+        btVoucher10.setVisibility(View.GONE );
     }
 }
