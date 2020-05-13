@@ -32,6 +32,7 @@ public class ChatOwnerFragment extends Fragment
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter( getChildFragmentManager() );
 
+        // Set fragments
         viewPagerAdapter.addFragment( new ChatsFragment(), "Chats" );
         viewPagerAdapter.addFragment( new UsersFragment(), "Users" );
 
@@ -47,8 +48,8 @@ public class ChatOwnerFragment extends Fragment
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
 
-        ViewPagerAdapter(FragmentManager fm) {
-            super( fm );
+        ViewPagerAdapter(FragmentManager fragmentManager) {
+            super( fragmentManager );
             this.fragments = new ArrayList<>(  );
             this.titles = new ArrayList<>(  );
         }

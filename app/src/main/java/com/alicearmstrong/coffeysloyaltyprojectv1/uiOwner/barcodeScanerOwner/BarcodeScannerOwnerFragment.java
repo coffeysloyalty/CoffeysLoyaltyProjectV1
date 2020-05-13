@@ -44,7 +44,6 @@ import java.util.regex.Pattern;
 public class BarcodeScannerOwnerFragment extends Fragment
 {
 
-    private BarcodeScannerOwnerViewModel BarcodeScannerOwnerViewModel;
     SurfaceView surfaceView;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
@@ -55,7 +54,6 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        BarcodeScannerOwnerViewModel = ViewModelProviders.of(this).get(BarcodeScannerOwnerViewModel.class);
         View root = inflater.inflate( R.layout.fragment_barcode_scanner_owner, container, false);
 
         surfaceView = root.findViewById(R.id.sfCameraView);
@@ -70,11 +68,13 @@ public class BarcodeScannerOwnerFragment extends Fragment
             @Override
             public void surfaceCreated(SurfaceHolder holder)
             {
+                // Check camera permissions
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
                 {
                     return;
                 }
 
+                // Start camera
                 try
                 {
                     cameraSource.start(holder);
@@ -91,13 +91,20 @@ public class BarcodeScannerOwnerFragment extends Fragment
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
             {
+                try {
+                    cameraSource.start(holder);
+                    surfaceView.setFocusableInTouchMode(true);
+                    surfaceView.setFocusable(true);
+                    surfaceView.requestFocus();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
 
             @Override
             public void surfaceDestroyed(SurfaceHolder holder)
             {
-                cameraSource.stop();
             }
         });
 
@@ -128,6 +135,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
                             final String qrcode = qrCodes.valueAt( 0 ).displayValue;
 
+                            // if qr code value is the users email and voucher code
                             if (qrcode.matches( "^(.+)@(.+)/(.+)/(.+)$" ))
                             {
                                 String qrEmail1 = null;
@@ -146,6 +154,8 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                 }
 
                                 final String finalQrVoucherNumber = qrVoucherNumber;
+
+                                // In db look for users information whos email address is equal to email address from QR code
                                 databaseReference.orderByChild( "email" ).equalTo(qrEmail).addChildEventListener( new ChildEventListener()
                                 {
 
@@ -179,49 +189,47 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                     }
                                 });
 
-                                Toast.makeText( getContext(), qrVoucherNumber, Toast.LENGTH_LONG ).show();
+                                textView.setText( "Voucher Number:" + qrVoucherNumber);
                             }
 
+                           // if email from QR code matches the regex method
                           else  if(qrcode.matches( "^(.+)@(.+)$"))
                             {
                                 String qrEmail = null;
                                 final Pattern pattern = Pattern.compile( "^(.+)@(.+)$" );
                                 final Matcher matcher = pattern.matcher( qrcode );
 
+
                                 if (matcher.matches())
                                 {
                                     qrEmail = matcher.group(0);
                                 }
 
-                                //Update database with new loyalty score
+                                // Update database with new loyalty score
                                 databaseReference.orderByChild( "email" ).equalTo(qrEmail).addChildEventListener( new ChildEventListener()
                                 {
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                    //Get users info from db
+                                    // Get users info from db
                                     final String firstName = dataSnapshot.child( "firstName" ).getValue().toString();
                                     final String surname = dataSnapshot.child( "surname" ).getValue().toString();
                                     final String email = dataSnapshot.child( "email" ).getValue().toString();
                                     final String loyaltyPoints = dataSnapshot.child( "loyaltyScore" ).getValue().toString();
 
-                                    //Check if history exists
                                     boolean historyExists = dataSnapshot.child( "History" ).exists();
-
-                                    //Get UUID
                                     String uuid = dataSnapshot.getKey();
-
-                                    //Convert loyalty points string to int
                                     int points = Integer.parseInt( loyaltyPoints );
 
-                                    //Set textview to users data
+                                    // Set textview to users data
                                     textView.setText( "Name: " + firstName + " " + surname + "\n" + "Email: " + email );
 
-                                    //Get date & time when QR Code is scanned
+                                    // Get date & time when QR Code is scanned
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "dd-MM-yyyy hh:mm:ss" );
                                     String dateStamp = simpleDateFormat.format( new Date() );
 
-                                    //If points =1 & customer has stamp history, old history is deleted and new history started
-                                    if (points == 0 && historyExists == true) {
+                                    // If points = 1 & customer has stamp history, old history is deleted and new history started
+                                    if (points == 0 && historyExists == true)
+                                    {
                                         int count;
 
                                         for (count = 1; count <= 10; count++) {
@@ -232,13 +240,13 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                         }
 
                                     }
-                                    //Increase points if less than 10
+                                    // Increase points if less than 10
                                     if (points < 10) {
                                         points++;
                                         databaseReference.child( uuid ).child( "loyaltyScore" ).setValue( points );
                                         databaseReference.child( uuid ).child( "History" ).child( String.valueOf( points ) ).setValue( dateStamp );
 
-                                        //If score is at 10, restart counter and reward user with voucher
+                                        // If score is at 10, restart counter and reward user with voucher
                                         if (points == 10) {
                                             try {
                                                 Thread.sleep( 3000 );
@@ -250,7 +258,9 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                             int voucherCount = 1;
                                             boolean voucherExists = dataSnapshot.child( "Voucher" ).exists();
 
-                                            if (voucherExists == true) {
+                                            // if voucher does exist, increase the total number of vouchers by 1, if not create new voucher
+                                            if (voucherExists == true)
+                                            {
                                                 long voucherNumber = dataSnapshot.child( "Voucher" ).getChildrenCount();
                                                 voucherNumber++;
 
@@ -290,7 +300,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
                             } );
                         }
 
-                            //Create alert dialog for successfully scanned QR Code
+                            // Create alert dialog for successfully scanned QR Code
                             AlertDialog.Builder ADSuccessfulScan = new AlertDialog.Builder(getContext());
                             ADSuccessfulScan.setMessage("The QR Code has successfully been scanned. The stamp has been successfully added.");
                             ADSuccessfulScan.setCancelable(true);
@@ -305,27 +315,7 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                         }
                                     });
 
-                            //User can start the camera
-                            ADSuccessfulScan.setNegativeButton("Restart Camera",
-                                    new DialogInterface.OnClickListener()
-                                    {
-                                        public void onClick(DialogInterface dialog, int id)
-                                        {
-                                            dialog.cancel();
-                                            try
-                                            {
-                                                cameraSource.start();
-                                                textView.clearComposingText();
-                                            }
-                                            catch (IOException e)
-                                            {
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-                                    });
-
-                            //Display alert diaglog box
+                            // Display alert diaglog box
                             ADSuccessfulScan.create();
                             ADSuccessfulScan.show();
 
@@ -336,14 +326,6 @@ public class BarcodeScannerOwnerFragment extends Fragment
             }
         });
 
-
-        BarcodeScannerOwnerViewModel.getText().observe(this, new Observer<String>()
-        {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-            }
-        });
 
 
         return root;

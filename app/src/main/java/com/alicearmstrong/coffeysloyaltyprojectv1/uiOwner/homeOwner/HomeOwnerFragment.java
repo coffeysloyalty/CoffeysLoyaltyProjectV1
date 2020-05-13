@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
-import com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.home.HomeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -39,11 +38,9 @@ public class HomeOwnerFragment extends Fragment
     private Handler handler;
     private Runnable runnable;
 
-    private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate( R.layout.fragment_home_owner, container, false);
         txtWelcomeBack = root.findViewById(R.id.txtWelcomeBack);
         txtCountdown = root.findViewById( R.id.txtCountdown );
@@ -51,31 +48,30 @@ public class HomeOwnerFragment extends Fragment
         userID = firebaseAuth.getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Customers").child(userID);
 
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-                txtWelcomeBack.setText("Hello, Philip \n \nWelcome back to Coffey's Loyalty! \n \nHow many days till Christmas?");
-                xmasCountdown();
+        // Set welcome message
+        txtWelcomeBack.setText("Hello, Philip \n \nWelcome back to Coffey's Loyalty! \n \nHow many days till Christmas?");
+        xmasCountdown();
 
-            }
-
-        });
         return root;
     }
 
-    public void xmasCountdown() {
+    // Countdown in days for xmas counter
+    public void xmasCountdown()
+    {
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
                 handler.postDelayed(this, 1000);
-                try {
+                try
+                {
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                     Date currentDate = new Date();
                     Calendar calendar = Calendar.getInstance();
                     //Get the current year and convert to string
                     int year = calendar.get(Calendar.YEAR);
+                    // Set date for mas
                     String xmas = year + "/12/25";
 
                     Date futureDate = dateFormat.parse(xmas);
@@ -88,6 +84,7 @@ public class HomeOwnerFragment extends Fragment
                         long minutes = diff / (60 * 1000);
                         diff -= minutes * (60 * 1000);
                         long seconds = diff / 1000;
+                        // Set string countdown
                         String countdown = ("X \n" + "MAS \n" + days + " Days \n" + hours + " Hours \n" + minutes + " Minutes \n" + seconds + " Seconds" );
                         SpannableString spannableString = new SpannableString(countdown);
                         txtCountdown.setText(spannableString);

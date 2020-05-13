@@ -25,28 +25,28 @@ import java.util.List;
 
 public class UsersFragment extends Fragment {
 
-private RecyclerView recyclerView;
-private CustomerAdapter customerAdapter;
-private List<Customers> mCustomers;
+    private RecyclerView recyclerView;
+    private CustomerAdapter customerAdapter;
+    private List<Customers> customersList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate( R.layout.fragment_users , container, false);
 
         recyclerView = view.findViewById( R.id.recycler_view );
         recyclerView.setHasFixedSize( true );
         recyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
 
-        mCustomers = new ArrayList<>(  );
+        customersList = new ArrayList<>(  );
 
         readCustomers();
 
         return view;
     }
 
+    // Method for reading customers
     private void readCustomers()
     {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,7 +56,7 @@ private List<Customers> mCustomers;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                mCustomers.clear();
+                customersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
@@ -64,11 +64,11 @@ private List<Customers> mCustomers;
 
                     if (!customers.getId().equals(firebaseUser.getUid()))
                     {
-                        mCustomers.add( customers );
+                        customersList.add( customers );
                     }
                 }
 
-                customerAdapter = new CustomerAdapter( getContext(), mCustomers );
+                customerAdapter = new CustomerAdapter( getContext(), customersList );
                 recyclerView.setAdapter( customerAdapter );
 
             }

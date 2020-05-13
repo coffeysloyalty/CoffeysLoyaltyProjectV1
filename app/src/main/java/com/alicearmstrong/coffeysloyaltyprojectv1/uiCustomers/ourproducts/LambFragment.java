@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
-import com.alicearmstrong.coffeysloyaltyprojectv1.ExpandableListAdapter;
+import com.alicearmstrong.coffeysloyaltyprojectv1.Adapter.ExpandableListAdapter;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 
 import java.util.ArrayList;

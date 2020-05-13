@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.alicearmstrong.coffeysloyaltyprojectv1.MessageActivityOwner;
+import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.MessageActivityOwner;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
 
@@ -19,42 +18,47 @@ import java.util.List;
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder>
 {
 
-    private Context mContext;
-    private List<Customers> mCustomers;
+    private Context context;
+    private List<Customers> customersList;
 
-    public CustomerAdapter (Context mContext, List<Customers> mCustomers)
+    public CustomerAdapter (Context context, List<Customers> customersList)
     {
-        this.mCustomers = mCustomers;
-        this.mContext = mContext;
+        this.customersList = customersList;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(mContext).inflate( R.layout.user_item , viewGroup, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i)
+    {
+        // Set layout to user_item for displaying each user
+        View view = LayoutInflater.from(context).inflate( R.layout.user_item , viewGroup, false);
         return new CustomerAdapter.ViewHolder( view );
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i)
     {
-        final Customers customer = mCustomers.get( i );
+        final Customers customer = customersList.get( i );
+        // Set title to user's name
         viewHolder.customerName.setText( customer.getFirstName() + " " + customer.getSurname() );
 
+        // Open Message Activity when user is selected
         viewHolder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, MessageActivityOwner.class );
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, MessageActivityOwner.class );
                 intent.putExtra( "userid", customer.getId() );
-                mContext.startActivity( intent );
-
+                context.startActivity( intent );
             }
         } );
     }
 
     @Override
-    public int getItemCount() {
-        return mCustomers.size();
+    public int getItemCount()
+    {
+        return customersList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -62,11 +66,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
         public TextView customerName;
 
-        public ViewHolder(@NonNull View itemView)
+        public ViewHolder(@NonNull View view)
         {
-            super( itemView );
+            super( view );
 
-            customerName = itemView.findViewById( R.id.customerName );
+            customerName = view.findViewById( R.id.customerName );
         }
     }
 

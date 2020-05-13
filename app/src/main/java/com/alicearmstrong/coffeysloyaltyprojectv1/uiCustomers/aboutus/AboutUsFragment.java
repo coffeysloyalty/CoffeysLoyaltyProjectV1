@@ -17,14 +17,10 @@ import uk.co.deanwild.flowtextview.FlowTextView;
 
 public class AboutUsFragment extends Fragment {
 
-    private AboutUsModel aboutUsModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        aboutUsModel = ViewModelProviders.of(this).get(AboutUsModel.class);
         View root = inflater.inflate( R.layout.fragment_about_us_customer, container, false);
 
-        // https://github.com/deano2390/FlowTextView
 
         FlowTextView flowTextView = (FlowTextView) root.findViewById(R.id.ftv);
         String about_us = getString(R.string.about_us);

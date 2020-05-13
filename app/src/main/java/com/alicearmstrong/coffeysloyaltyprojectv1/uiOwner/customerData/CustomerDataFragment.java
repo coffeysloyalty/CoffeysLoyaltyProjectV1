@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import java.util.ArrayList;
 public class CustomerDataFragment extends Fragment
 {
 
-    CustomerDataViewModel customerDataViewModel;
     DatabaseReference databaseReference;
     ListView listView;
     EditText etSearch;
@@ -39,7 +39,6 @@ public class CustomerDataFragment extends Fragment
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        customerDataViewModel = ViewModelProviders.of(this).get(CustomerDataViewModel.class);
         View root = inflater.inflate( R.layout.fragment_customer_data, container, false);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Customers");
@@ -48,15 +47,6 @@ public class CustomerDataFragment extends Fragment
         arrayAdapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
 
-
-
-        customerDataViewModel.getText().observe(this, new Observer<String>()
-        {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-            }
-        });
 
         //Search bar to allow owner to search for customer
         etSearch.addTextChangedListener(new TextWatcher()
@@ -87,6 +77,7 @@ public class CustomerDataFragment extends Fragment
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
             {
+                // Retrieve information from database
                 final String firstName = dataSnapshot.child("firstName").getValue().toString();
                 final String surname = dataSnapshot.child("surname").getValue().toString();
                 final String dob = dataSnapshot.child("dob").getValue().toString();
@@ -122,7 +113,8 @@ public class CustomerDataFragment extends Fragment
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-                System.out.println("The read failed: " + databaseError.getCode());
+                // Logging
+                Log.d("CustomerDataFragment","The read failed: " + databaseError.getCode());
             }
 
         });

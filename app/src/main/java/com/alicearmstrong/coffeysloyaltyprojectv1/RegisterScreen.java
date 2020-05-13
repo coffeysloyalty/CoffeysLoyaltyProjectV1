@@ -114,40 +114,46 @@ public class RegisterScreen extends AppCompatActivity
 
         // Validation
         if (TextUtils.isEmpty(firstName)) {
-            Toast.makeText(RegisterScreen.this, "Please enter your First Name", Toast.LENGTH_LONG).show();
+            etFirstName.setError("Please enter your First Name. ");
             etFirstName.requestFocus();
             return;
         } else if (TextUtils.isEmpty(surname)) {
-            Toast.makeText(RegisterScreen.this, "Please enter your Surname", Toast.LENGTH_LONG).show();
+            etSurname.setError("Please enter your Surname. ");
             etSurname.requestFocus();
             return;
         } else if (TextUtils.isEmpty(dob)) {
-            Toast.makeText(RegisterScreen.this, "Please select your Date Of Birth.", Toast.LENGTH_LONG).show();
+            tvDisplayDate.setError( "Please select your Date Of Birth." );
             btDatePicker.requestFocus();
         } else if (TextUtils.isEmpty(contactNumber)) {
-            Toast.makeText(RegisterScreen.this, "Please enter your Contact Number. ", Toast.LENGTH_LONG).show();
+            etContactNumber.setError("Please enter your Contact Number. ");
             etContactNumber.requestFocus();
-            return;
         } else if (contactNumber.length() < 11) {
             etContactNumber.setError("Invalid phone number, please re-enter your Contact Number.");
             etContactNumber.setText("");
             etContactNumber.requestFocus();
         } else if (TextUtils.isEmpty(email)) {
-            Toast.makeText(RegisterScreen.this, "Please enter an Email Address", Toast.LENGTH_LONG).show();
-            return;
+            etEmail.setError("Please enter an Email Address");
+            etEmail.requestFocus();
         } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(RegisterScreen.this, "Please enter a password", Toast.LENGTH_LONG).show();
-            return;
+            etPassword.setError("Please enter a password");
+            etPassword.requestFocus();
         } else if (password.length() < 6) {
             etPassword.setError("Password too short, enter minimum 6 characters.");
-        } else if (TextUtils.isEmpty(passwordRepeat)) {
-            Toast.makeText(RegisterScreen.this, "Please confirm password", Toast.LENGTH_LONG).show();
-            return;
+            etPassword.setText("");
+            etPassword.requestFocus();
+        } else if (TextUtils.isEmpty(passwordRepeat))
+        {
+            etPasswordRepeat.setError("Please confirm password");
+            etPasswordRepeat.requestFocus();
         } else if (passwordRepeat.length() < 6) {
             etPasswordRepeat.setError("Password too short, enter minimum 6 characters.");
+            etPasswordRepeat.setText("");
+            etPasswordRepeat.requestFocus();
         } else if (!password.equals(passwordRepeat)) {
             etPasswordRepeat.setError("Password's do not match. Please re-enter password");
             etPasswordRepeat.setText("");
+            etPasswordRepeat.requestFocus();
+
         }
         else {
             firebaseAuth.createUserWithEmailAndPassword(email, passwordRepeat)
@@ -158,6 +164,7 @@ public class RegisterScreen extends AppCompatActivity
                         {
                             if (task.isSuccessful())
                             {
+                                // Show progress bar
                                 btRegister.setVisibility(View.GONE);
                                 pbRegister.setVisibility(View.VISIBLE);
 
@@ -192,17 +199,11 @@ public class RegisterScreen extends AppCompatActivity
                                                     insertData();
                                                     firebaseAuth.signOut();
                                                     clearForm();
-
-
-
-
-
-
                                                 }
                                             }
                                         });
                             }
-                            //Method for unsuccessful registration
+                            // Method for unsuccessful registration
                             else if (!task.isSuccessful()) {
                                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                                 Log.d("RegisterScreen", errorCode);

@@ -1,4 +1,4 @@
-package com.alicearmstrong.coffeysloyaltyprojectv1;
+package com.alicearmstrong.coffeysloyaltyprojectv1.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,21 +41,20 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getChildView(int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
         final String childText = (String) getChild(groupPosition, childPosition);
 
-        if (convertView == null)
+        if (view == null)
         {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_item, null);
+            view = layoutInflater.inflate( R.layout.list_item, null);
         }
 
-        TextView txtListChild = convertView.findViewById(R.id.txtListItem);
+        TextView txtListChild = view.findViewById(R.id.txtListItem);
 
         txtListChild.setText(childText);
-        return convertView;
+        return view;
     }
 
     @Override
@@ -81,20 +82,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
+    public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent)
     {
         String headerTitle = (String) getGroup(groupPosition);
-        if (convertView == null)
+        if (view == null)
         {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group, null);
+            view = layoutInflater.inflate(R.layout.list_group, null);
         }
 
-        TextView txtListHeader = convertView.findViewById(R.id.txtlListHeader);
-        txtListHeader.setTypeface(null, Typeface.BOLD);
+        TextView txtListHeader = view.findViewById(R.id.txtlListHeader);
         txtListHeader.setText(headerTitle);
 
-        return convertView;
+        return view;
     }
 
     @Override

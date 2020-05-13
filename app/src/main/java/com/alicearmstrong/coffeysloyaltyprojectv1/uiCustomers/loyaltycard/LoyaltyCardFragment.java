@@ -35,12 +35,9 @@ public class LoyaltyCardFragment extends Fragment
      ArrayAdapter<String> arrayAdapter;
 
 
-    private LoyaltyCardViewModel loyaltyCardViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
-        loyaltyCardViewModel = ViewModelProviders.of(this).get(LoyaltyCardViewModel.class);
         View root = inflater.inflate( R.layout.fragment_loyalty_card_customers, container, false);
         Stamp1 = root.findViewById(R.id.ivStamp1);
         Stamp2 = root.findViewById(R.id.ivStamp2);
@@ -60,13 +57,6 @@ public class LoyaltyCardFragment extends Fragment
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Customers").child(userID);
 
         showLoyaltyPoints();
-        loyaltyCardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-
-            }
-        });
 
         databaseReference.addValueEventListener(new ValueEventListener()
         {
@@ -82,6 +72,7 @@ public class LoyaltyCardFragment extends Fragment
                 {
                     final boolean date = dataSnapshot.child("History").child(String.valueOf(count)).exists();
 
+                    // Display date and time of stamps collected
                     if (date == true)
                     {
                         final String stampDate = dataSnapshot.child("History").child(String.valueOf(count)).getValue().toString();
@@ -122,6 +113,7 @@ public class LoyaltyCardFragment extends Fragment
                 // Retrieve users loyalty points score
                 String loyaltyPoints = dataSnapshot.child("loyaltyScore").getValue().toString();
 
+                // Show stamps
                 switch (loyaltyPoints) {
                     case "0":
                         break;

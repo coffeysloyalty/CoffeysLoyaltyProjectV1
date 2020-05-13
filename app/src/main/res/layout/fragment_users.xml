@@ -6,8 +6,19 @@
     android:background="@color/gold"
     tools:context=".ChatFragments.UsersFragment">
 
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:ems="20"
+        android:hint="@string/search"
+        android:layout_weight="0.5"
+        android:paddingLeft="15dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
+        android:layout_below="@+id/etSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

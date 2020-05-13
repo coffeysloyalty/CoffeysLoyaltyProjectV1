@@ -16,12 +16,10 @@ import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 public class OurProductsFragment extends Fragment implements View.OnClickListener
 {
 
-    private OurProductsViewModel ourProductsViewModel;
     private Button btnPork, btnBeef, btnPoultry, btnLamb, btnSpecialityMeats, btnCookedProducts;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        ourProductsViewModel = ViewModelProviders.of(this).get(OurProductsViewModel.class);
         View root = inflater.inflate( R.layout.fragment_our_products_customers, container, false);
         btnPork = root.findViewById(R.id.btPork);
         btnBeef = root.findViewById(R.id.btBeef);
@@ -40,7 +38,7 @@ public class OurProductsFragment extends Fragment implements View.OnClickListene
         return root;
     }
 
-
+    // OnClick for image buttons
     @Override
     public void onClick(View v)
     {

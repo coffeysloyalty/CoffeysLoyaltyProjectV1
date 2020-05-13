@@ -84,9 +84,8 @@ public class LoginScreen extends AppCompatActivity
 
         if (TextUtils.isEmpty(Password))
         {
-            Toast.makeText(getApplicationContext(), "Please enter a password.", Toast.LENGTH_SHORT).show();
+            etPassword.setError("Please enter a password..");
             etPassword.requestFocus();
-            return;
         }
         else if (Password.length() < 6)
         {
@@ -113,10 +112,9 @@ public class LoginScreen extends AppCompatActivity
                                         {
                                             checkIfAdmin();
 
-                                            Log.d("RegisterScreen", "Email verified.");
-
+                                            Log.d("Login Screen", "Email verified.");
                                         }
-                                        //Method if user has not verified their email
+                                        // Method if user has not verified their email
                                         else if (!firebaseUser.isEmailVerified())
                                         {
                                             // Create alert dialog for email  address not verified
@@ -250,6 +248,7 @@ public class LoginScreen extends AppCompatActivity
         });
     }
 
+    // Check if the user logging is admin
     public void checkIfAdmin()
     {
         if (userID.equals("lYr5teVjoFP7TkXPowgARdDBzV83") )

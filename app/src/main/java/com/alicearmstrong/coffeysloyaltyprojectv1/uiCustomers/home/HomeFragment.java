@@ -34,27 +34,16 @@ public class HomeFragment extends Fragment
     private String userID;
     private TextView txtWelcomeBack;
 
-    private HomeViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate( R.layout.fragment_home_customer, container, false);
         qrCodeImage = root.findViewById(R.id.ivQrCode);
         txtWelcomeBack = root.findViewById(R.id.txtWelcomeBack);
         firebaseAuth = FirebaseAuth.getInstance();
         userID = firebaseAuth.getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Customers").child(userID);
-
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-                usersInfo();
-            }
-        });
-
+        usersInfo();
 
 
         return root;
@@ -68,15 +57,16 @@ public class HomeFragment extends Fragment
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
+                // Retrieve users QRCode and download image
                 String qrcode = dataSnapshot.child("qrCode").getValue().toString();
                 Picasso.with(getActivity()).load(qrcode).into(qrCodeImage);
 
 
-                // Retrieve users firstname and loyalty points score
+                // Retrieve users first name and loyalty points score
                 String firstName = dataSnapshot.child("firstName").getValue().toString();
                 String loyaltyPoints = dataSnapshot.child("loyaltyScore").getValue().toString();
 
-                //Convert loyalty points string to int
+                // Convert loyalty points string to int
                 int points = Integer.parseInt(loyaltyPoints);
                 int pointsTillReward = 10 - points;
 

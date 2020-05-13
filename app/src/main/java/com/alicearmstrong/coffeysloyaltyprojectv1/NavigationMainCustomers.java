@@ -30,7 +30,6 @@ public class NavigationMainCustomers extends AppCompatActivity
 {
 
     DatabaseReference databaseReference;
-    FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
     String userID;
     TextView txtuserEmail, txtUsersName;

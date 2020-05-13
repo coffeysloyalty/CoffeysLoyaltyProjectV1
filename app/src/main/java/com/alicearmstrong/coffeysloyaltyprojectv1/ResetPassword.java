@@ -80,7 +80,6 @@ public class ResetPassword extends AppCompatActivity
                     {
                         if (task.isSuccessful())
                         {
-                            // Need to add in progress bar
                             // Create alert dialog for rest password successful
                             AlertDialog.Builder ADRestPassword = new AlertDialog.Builder(ResetPassword.this);
                             ADRestPassword.setMessage("An email to reset your password has been sent. Please check your emails. .");
@@ -100,6 +99,7 @@ public class ResetPassword extends AppCompatActivity
                             ADRestPassword.show();
                             etEmailReset.setText("");
 
+                            // Logging
                             Log.d("ResetPassword", "Reset email has been sent.");
                             return;
                         }
@@ -124,6 +124,7 @@ public class ResetPassword extends AppCompatActivity
                             etEmailReset.requestFocus();
                             etEmailReset.setText("");
 
+                            // Logging
                             Log.d("ResetPassword", "Incorrect email entered.");
                             return;
                         }

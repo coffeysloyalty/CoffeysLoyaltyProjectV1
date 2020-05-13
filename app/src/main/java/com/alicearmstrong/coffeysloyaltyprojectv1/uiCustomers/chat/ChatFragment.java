@@ -1,11 +1,7 @@
 package com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.chat;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.Adapter.MessageAdapter;
-import com.alicearmstrong.coffeysloyaltyprojectv1.MessageActivityOwner;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Chat;
-import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +39,7 @@ public class ChatFragment extends Fragment {
     EditText etTextSend;
 
     MessageAdapter messageAdapter;
-    List<Chat> mChat;
+    List<Chat> chatList;
 
     RecyclerView recyclerView;
 
@@ -56,9 +49,6 @@ public class ChatFragment extends Fragment {
 
         btnSend = root.findViewById( R.id.btn_send );
         etTextSend = root.findViewById( R.id.text_send );
-
-        userid = "lYr5teVjoFP7TkXPowgARdDBzV83";
-
         recyclerView = root.findViewById( R.id.recycler_view );
         recyclerView.setHasFixedSize( true );
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getContext() );
@@ -71,6 +61,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String message = etTextSend.getText().toString();
+                // Validation for empty message
                 if(!message.equals( "" ))
                 {
                     sendMessage(firebaseUser.getUid(), message );
@@ -102,41 +93,40 @@ public class ChatFragment extends Fragment {
         return root;
     }
 
-    public void sendMessage(String sender,  String message)
+    // Method for send message
+    public void sendMessage(String senderID,  String message)
     {
-        String receiver = "lYr5teVjoFP7TkXPowgARdDBzV83";
+        String receiverID = "lYr5teVjoFP7TkXPowgARdDBzV83";
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        HashMap<String, Object> hashMap = new HashMap<>( );
-        hashMap.put("sender", sender);
-        hashMap.put( "receiver", receiver );
-        hashMap.put( "message", message );
+            databaseReference = FirebaseDatabase.getInstance().getReference();
+            Chat messageDetails = new Chat( senderID,receiverID,message );
+            databaseReference.child("Chats").push().setValue( messageDetails );
 
-        databaseReference.child( "Chats" ).push().setValue( hashMap );
 
     }
 
-    private void readMessage(final String myid, final String userid)
+    // Method for reading message
+    private void readMessage(final String senderID, final String receiverID)
     {
-        mChat = new ArrayList<>(  );
+        chatList = new ArrayList<>(  );
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
 
         databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mChat.clear();
+                chatList.clear();
 
                 for(DataSnapshot snapshot: dataSnapshot.getChildren())
                 {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getReceiver().equals( myid ) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid)  && chat.getSender().equals(myid))
+                    if (chat.getReceiver().equals( senderID ) && chat.getSender().equals(receiverID) || chat.getReceiver().equals(receiverID)  && chat.getSender().equals(senderID))
                     {
-                        mChat.add( chat );
+                        chatList.add( chat );
                     }
 
-                    messageAdapter = new MessageAdapter(getContext(), mChat);
+                    messageAdapter = new MessageAdapter(getContext(), chatList);
                     recyclerView.setAdapter( messageAdapter );
                 }
 

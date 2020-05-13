@@ -1,4 +1,4 @@
-package com.alicearmstrong.coffeysloyaltyprojectv1;
+package com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.Adapter.MessageAdapter;
+import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Chat;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,18 +33,13 @@ import java.util.List;
 public class MessageActivityOwner extends AppCompatActivity {
 
     TextView customerName;
-
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
-
     ImageButton btnSend;
     EditText etTextSend;
-
     MessageAdapter messageAdapter;
-    List<Chat> mChat;
-
+    List<Chat> chatList;
     RecyclerView recyclerView;
-
     Intent intent;
 
     @Override
@@ -62,8 +58,6 @@ public class MessageActivityOwner extends AppCompatActivity {
             }
         } );
 
-
-
         customerName = findViewById( R.id.customerName );
         btnSend = findViewById( R.id.btn_send );
         etTextSend = findViewById( R.id.text_send );
@@ -79,10 +73,12 @@ public class MessageActivityOwner extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Customers").child( userid );
 
+        // OnClick for send message
         btnSend.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = etTextSend.getText().toString();
+                // Validation for empty message
                 if(!message.equals( "" ))
                 {
                     sendMessage(firebaseUser.getUid(), userid, message );
@@ -114,39 +110,35 @@ public class MessageActivityOwner extends AppCompatActivity {
         } );
     }
 
-    public void sendMessage(String sender, String receiver, String message)
+    // Method for send message
+    public void sendMessage(String senderID, String receiverID, String message)
     {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        HashMap<String, Object> hashMap = new HashMap<>( );
-        hashMap.put("sender", sender);
-        hashMap.put( "receiver", receiver );
-        hashMap.put( "message", message );
-
-        databaseReference.child( "Chats" ).push().setValue( hashMap );
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Chat messageDetails = new Chat( senderID,receiverID,message );
+        databaseReference.child("Chats").push().setValue( messageDetails );
     }
 
-    private void readMessage(final String myid, final String userid)
+    // Method for reading message
+    private void readMessage(final String senderID, final String receiverID)
     {
-        mChat = new ArrayList<>(  );
+        chatList = new ArrayList<>(  );
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
 
         databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mChat.clear();
+                chatList.clear();
 
                 for(DataSnapshot snapshot: dataSnapshot.getChildren())
                 {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getReceiver().equals( myid ) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid)  && chat.getSender().equals(myid))
+                    if (chat.getReceiver().equals( senderID ) && chat.getSender().equals(receiverID) || chat.getReceiver().equals(receiverID)  && chat.getSender().equals(senderID))
                     {
-                        mChat.add( chat );
+                        chatList.add( chat );
                     }
 
-                    messageAdapter = new MessageAdapter(MessageActivityOwner.this, mChat);
+                    messageAdapter = new MessageAdapter(getApplicationContext(), chatList);
                     recyclerView.setAdapter( messageAdapter );
                 }
 

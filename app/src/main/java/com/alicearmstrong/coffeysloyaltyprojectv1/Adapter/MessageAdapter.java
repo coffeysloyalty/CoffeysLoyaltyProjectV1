@@ -17,31 +17,31 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    private  static  final int MSG_TYPE_LEFT = 0;
-    private  static  final int MSG_TYPE_RIGHT= 1;
+    private  static  final int message_left = 0;
+    private  static  final int message_right= 1;
 
-    private Context mContext;
-    private List<Chat> mChat;
+    private Context context;
+    private List<Chat> chatList;
 
     FirebaseUser firebaseUser;
 
-    public MessageAdapter(Context mContext, List<Chat> mChat)
+    public MessageAdapter(Context context, List<Chat> chatList)
     {
-        this.mChat = mChat;
-        this.mContext = mContext;
+        this.chatList = chatList;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (viewType == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from( mContext ).inflate( R.layout.chat_item_right, parent, false );
+        if (viewType == message_right) {
+            View view = LayoutInflater.from( context ).inflate( R.layout.chat_item_right, parent, false );
             return new MessageAdapter.ViewHolder( view );
         }
         else
         {
-            View view = LayoutInflater.from( mContext ).inflate( R.layout.chat_item_left, parent, false );
+            View view = LayoutInflater.from( context ).inflate( R.layout.chat_item_left, parent, false );
             return new MessageAdapter.ViewHolder( view );
         }
     }
@@ -49,7 +49,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Chat chat = mChat.get( position );
+        Chat chat = chatList.get( position );
 
         holder.show_message.setText( chat.getMessage() );
 
@@ -58,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mChat.size();
+        return chatList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -75,13 +75,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getSender().equals( firebaseUser.getUid()))
+        if (chatList.get(position).getSender().equals( firebaseUser.getUid()))
         {
-            return MSG_TYPE_RIGHT;
+            return message_right;
         }
         else
         {
-            return MSG_TYPE_LEFT;
+            return message_left;
         }
     }
 }

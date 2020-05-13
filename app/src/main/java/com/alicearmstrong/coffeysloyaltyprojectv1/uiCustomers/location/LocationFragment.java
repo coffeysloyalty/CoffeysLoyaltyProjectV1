@@ -27,7 +27,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocationFragment extends Fragment implements OnMapReadyCallback {
-    private LocationViewModel locationViewModel;
     private GoogleMap gMap;
     private MapView mapView;
     private Location currentLocation;
@@ -37,7 +36,7 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        locationViewModel = ViewModelProviders.of( this ).get( LocationViewModel.class );
+
         View view = inflater.inflate( R.layout.fragment_location_customer, container, false );
 
         return view;
@@ -87,8 +86,6 @@ public class LocationFragment extends Fragment implements OnMapReadyCallback {
             Double lng = location.getLongitude();
 
             currentLocation = location;
-            Toast.makeText( getActivity(), "Updated Location: " + lat + lng, Toast.LENGTH_SHORT ).show();
-
         }
     };
 

@@ -42,6 +42,7 @@ public class NavigationMainOwner extends AppCompatActivity
 
     }
 
+    // Method for bottom navigation bar, open's fragment depending on which option is selected
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -77,9 +78,10 @@ public class NavigationMainOwner extends AppCompatActivity
         }
     };
 
+    // Load fragment method
     private void loadFragment(Fragment fragment)
     {
-        // Load fragment
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
