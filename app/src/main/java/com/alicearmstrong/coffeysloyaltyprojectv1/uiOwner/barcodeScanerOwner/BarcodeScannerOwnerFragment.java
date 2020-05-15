@@ -155,6 +155,8 @@ public class BarcodeScannerOwnerFragment extends Fragment
 
                                 final String finalQrVoucherNumber = qrVoucherNumber;
 
+                                textView.setText( "Voucher Number:" + qrVoucherNumber);
+
                                 // In db look for users information whos email address is equal to email address from QR code
                                 databaseReference.orderByChild( "email" ).equalTo(qrEmail).addChildEventListener( new ChildEventListener()
                                 {
@@ -189,7 +191,6 @@ public class BarcodeScannerOwnerFragment extends Fragment
                                     }
                                 });
 
-                                textView.setText( "Voucher Number:" + qrVoucherNumber);
                             }
 
                            // if email from QR code matches the regex method

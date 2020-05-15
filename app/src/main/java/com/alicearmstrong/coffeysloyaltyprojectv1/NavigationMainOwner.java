@@ -65,7 +65,7 @@ public class NavigationMainOwner extends AppCompatActivity
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_customer_data:
-                    toolbar.setTitle("Customer's Data");
+                    toolbar.setTitle("Customer's Registered");
                     fragment = new CustomerDataFragment();
                     loadFragment(fragment);
                     return true;

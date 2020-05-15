@@ -14,7 +14,8 @@
         android:background="@color/black"
         app:titleTextColor="@color/white"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
 
 
     <FrameLayout

@@ -54,6 +54,7 @@ public class ChatFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getContext() );
         recyclerView.setLayoutManager( linearLayoutManager );
 
+        userid = "lYr5teVjoFP7TkXPowgARdDBzV83";
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Customers").child( userid );
 

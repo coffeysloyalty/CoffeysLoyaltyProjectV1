@@ -32,12 +32,12 @@ public class ChatsFragment extends Fragment
     private RecyclerView recyclerView;
 
     private CustomerAdapter customerAdapter;
-    private List<Customers> customersList;
+    private List<Customers> mCustomers;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
-    private List<String> stringList;
+    private List<String> customerList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,13 +51,13 @@ public class ChatsFragment extends Fragment
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        stringList = new ArrayList<>(  );
+        customerList = new ArrayList<>(  );
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
         databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                stringList.clear();
+                customerList.clear();
 
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
 
@@ -65,21 +65,21 @@ public class ChatsFragment extends Fragment
 
                     if (chat.getSender().equals(firebaseUser.getUid())) {
 
-                        stringList.add(chat.getReceiver());
+                        customerList.add(chat.getReceiver());
                     }
 
                     if (chat.getReceiver().equals(firebaseUser.getUid()))
                     {
-                        stringList.add(chat.getSender());
+                        customerList.add(chat.getSender());
                     }
 
                 }
-                Set<String> hashSet = new HashSet<String>(stringList);
+                Set<String> hashSet = new HashSet<String>(customerList);
 
-                stringList.clear();
-                stringList.addAll(hashSet);
+                customerList.clear();
+                customerList.addAll(hashSet);
 
-                checkIfChatExists();
+                readChats();
             }
 
             @Override
@@ -91,34 +91,33 @@ public class ChatsFragment extends Fragment
         return view;
     }
 
-    // Check if the
-    private void checkIfChatExists()
+    private void readChats()
     {
-        customersList = new ArrayList<>(  );
+        mCustomers = new ArrayList<>(  );
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Customers");
         databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                customersList.clear();
+                mCustomers.clear();
 
                 for(DataSnapshot snapshot:dataSnapshot.getChildren())
                 {
                     Customers customer = snapshot.getValue(Customers.class);
 
-                    for(String id:stringList)
+                    for(String id:customerList)
                     {
                         assert customer != null;
 
                         if (customer.getId().equals(id))
                         {
-                            customersList.add(customer);
+                            mCustomers.add(customer);
                         }
                     }
                 }
 
 
-                customerAdapter = new CustomerAdapter(getContext(),customersList);
+                customerAdapter = new CustomerAdapter(getContext(),mCustomers);
 
                 recyclerView.setAdapter(customerAdapter);
 
