@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+
 import com.alicearmstrong.coffeysloyaltyprojectv1.Adapter.CustomerAdapter;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
+import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.customerData.CustomerDataFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,15 +36,15 @@ public class UsersFragment extends Fragment {
     private CustomerAdapter customerAdapter;
     private List<Customers> customersList;
     DatabaseReference databaseReference;
-
-    EditText etSearch;
+    ArrayAdapter <String> arrayAdapter;
+    SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_users , container, false);
-        etSearch = view.findViewById(R.id.etSearch);
+        searchView = view.findViewById(R.id.search);
         recyclerView = view.findViewById( R.id.recycler_view );
         recyclerView.setHasFixedSize( true );
         recyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
@@ -50,26 +53,28 @@ public class UsersFragment extends Fragment {
 
         readCustomers();
 
-        //Search bar to allow owner to search for customer
-        etSearch.addTextChangedListener(new TextWatcher()
-        {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after)
-            {
-
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count)
-            {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-
+            public boolean onQueryTextChange(String newText) {
+                String userInput = newText.toLowerCase();
+                List<Customers> newList = new ArrayList<>();
+                for (Customers customers : customersList) {
+                    if (customers.getFirstName().toLowerCase().contains(userInput)  ) {
+                        newList.add( (Customers) customersList );
+                    }
+                }
+                customerAdapter.upToDate(newList);
+                return true;
             }
         });
+
+
+
         return view;
     }
 

@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.MessageActivityOwner;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder>
@@ -61,6 +64,39 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         return customersList.size();
     }
 
+   /* @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter()
+    {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Customers> filteredList = new ArrayList<>(  );
+            if (constraint == null || constraint.length() == 0)
+            {
+                filteredList.addAll( customersList );
+            }
+            else
+            {
+                // allows search to be case sensitive
+                String filteredPattern = constraint.toString().toLowerCase().trim();
+
+                for(Customers customers : customersList )
+                {
+
+                }
+            }
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+        }
+    };*/
+
     public class ViewHolder extends RecyclerView.ViewHolder
     {
 
@@ -72,6 +108,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
             customerName = view.findViewById( R.id.customerName );
         }
+    }
+
+    public void upToDate(List<Customers> newList){
+        customersList = new ArrayList<>();
+        customersList.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }
