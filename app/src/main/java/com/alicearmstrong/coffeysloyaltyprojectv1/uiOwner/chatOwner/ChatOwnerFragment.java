@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.ChatFragments.ChatsFragment;
-import com.alicearmstrong.coffeysloyaltyprojectv1.ChatFragments.UsersFragment;
+import com.alicearmstrong.coffeysloyaltyprojectv1.ChatFragments.CustomersFragment;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ChatOwnerFragment extends Fragment
 
         // Set fragments
         viewPagerAdapter.addFragment( new ChatsFragment(), "Chats" );
-        viewPagerAdapter.addFragment( new UsersFragment(), "Users" );
+        viewPagerAdapter.addFragment( new CustomersFragment(), "Customer's" );
 
         viewPager.setAdapter( viewPagerAdapter );
 
@@ -45,35 +45,35 @@ public class ChatOwnerFragment extends Fragment
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        private ArrayList<Fragment> fragments;
-        private ArrayList<String> titles;
+        private ArrayList<Fragment> fragmentArrayList;
+        private ArrayList<String> titlesArrayList;
 
         ViewPagerAdapter(FragmentManager fragmentManager) {
             super( fragmentManager );
-            this.fragments = new ArrayList<>(  );
-            this.titles = new ArrayList<>(  );
+            this.fragmentArrayList = new ArrayList<>(  );
+            this.titlesArrayList = new ArrayList<>(  );
         }
 
         @Override
         public Fragment getItem(int i) {
-            return fragments.get( i );
+            return fragmentArrayList.get( i );
         }
 
         @Override
         public int getCount() {
-            return fragments.size();
+            return fragmentArrayList.size();
         }
 
         public void addFragment ( Fragment fragment, String title)
         {
-            fragments.add( fragment );
-            titles.add( title );
+            fragmentArrayList.add( fragment );
+            titlesArrayList.add( title );
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return  titles.get( position );
+            return  titlesArrayList.get( position );
         }
     }
 

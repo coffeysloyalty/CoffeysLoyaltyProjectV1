@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment
                 if (points == 10)
                 {
                     AlertDialog.Builder ADVoucher = new AlertDialog.Builder(getContext());
-                    ADVoucher.setMessage("You have successfully gained 10 points. You can see your reward under Loyalty Card Section");
+                    ADVoucher.setMessage("You have successfully gained 10 points. You can see your reward under the Voucher Section");
                     ADVoucher.setCancelable(true);
 
                     ADVoucher.setPositiveButton("Dismiss",

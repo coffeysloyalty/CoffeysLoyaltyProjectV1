@@ -30,21 +30,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersFragment extends Fragment {
+public class CustomersFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CustomerAdapter customerAdapter;
     private List<Customers> customersList;
     DatabaseReference databaseReference;
-    ArrayAdapter <String> arrayAdapter;
-    SearchView searchView;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_users , container, false);
-        searchView = view.findViewById(R.id.search);
         recyclerView = view.findViewById( R.id.recycler_view );
         recyclerView.setHasFixedSize( true );
         recyclerView.setLayoutManager( new LinearLayoutManager( getContext() ) );
@@ -52,26 +48,6 @@ public class UsersFragment extends Fragment {
         customersList = new ArrayList<>(  );
 
         readCustomers();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                String userInput = newText.toLowerCase();
-                List<Customers> newList = new ArrayList<>();
-                for (Customers customers : customersList) {
-                    if (customers.getFirstName().toLowerCase().contains(userInput)  ) {
-                        newList.add( (Customers) customersList );
-                    }
-                }
-                customerAdapter.upToDate(newList);
-                return true;
-            }
-        });
 
 
 
