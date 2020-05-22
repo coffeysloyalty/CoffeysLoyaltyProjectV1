@@ -5,13 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.uiCustomers.logout.LogoutFragment;
-import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.barcodeScanerOwner.BarcodeScannerOwnerFragment;
+import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.barcodeScanerOwner.BarcodeScannerFragment;
 import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.ChatOwnerFragment;
 import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.customerData.CustomerDataFragment;
 import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.homeOwner.HomeOwnerFragment;
@@ -29,7 +28,8 @@ public class NavigationMainOwner extends AppCompatActivity
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Home");
+        toolbar.setTitle( "Home" );
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -37,6 +37,7 @@ public class NavigationMainOwner extends AppCompatActivity
         if (savedInstanceState == null)
         {
             bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+
         }
 
 
@@ -56,7 +57,7 @@ public class NavigationMainOwner extends AppCompatActivity
                     return true;
                 case R.id.navigation_barcode_scanner:
                     toolbar.setTitle("Barcode Scanner");
-                    fragment = new BarcodeScannerOwnerFragment();
+                    fragment = new BarcodeScannerFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_chat:

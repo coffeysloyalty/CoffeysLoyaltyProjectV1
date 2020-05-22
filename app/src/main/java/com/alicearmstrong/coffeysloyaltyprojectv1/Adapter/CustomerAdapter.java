@@ -7,15 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
-import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.MessageActivityOwner;
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
 import com.alicearmstrong.coffeysloyaltyprojectv1.database.Customers;
+import com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.chatOwner.MessageActivityOwner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder>

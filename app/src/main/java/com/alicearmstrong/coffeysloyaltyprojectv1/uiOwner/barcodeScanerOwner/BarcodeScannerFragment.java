@@ -3,8 +3,6 @@ package com.alicearmstrong.coffeysloyaltyprojectv1.uiOwner.barcodeScanerOwner;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -21,10 +19,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alicearmstrong.coffeysloyaltyprojectv1.R;
-import com.alicearmstrong.coffeysloyaltyprojectv1.RegisterScreen;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -41,7 +37,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BarcodeScannerOwnerFragment extends Fragment
+public class BarcodeScannerFragment extends Fragment
 {
 
     SurfaceView surfaceView;

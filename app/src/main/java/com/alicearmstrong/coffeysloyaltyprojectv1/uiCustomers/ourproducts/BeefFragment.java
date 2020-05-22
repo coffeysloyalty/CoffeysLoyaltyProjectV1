@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-// http://www.apnatutorials.com/android/expandable-listview-customization-and-usage.php?categoryId=2&subCategoryId=57&myPath=android/expandable-listview-customization-and-usage.php
-// look into adding images as well to expandable list view
 public class BeefFragment extends Fragment
 {
     ExpandableListAdapter listAdapter;
